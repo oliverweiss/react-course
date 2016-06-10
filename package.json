@@ -4,7 +4,9 @@
   "description": "Dan abramov's react and redux course",
   "main": "index.js",
   "scripts": {
-    "test": "node counter.test.js"
+    "test": "node counter.test.js",
+    "build": "node_modules/.bin/browserify index.js -o script.js",
+    "start": "node_modules/.bin/ws --spa index.html"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,9 @@
   "author": "oliverweiss",
   "license": "ISC",
   "devDependencies": {
-    "expect": "^1.20.1"
+    "browserify": "^13.0.1",
+    "expect": "^1.20.1",
+    "local-web-server": "^1.2.6"
   },
   "dependencies": {
     "redux": "^3.5.2"
