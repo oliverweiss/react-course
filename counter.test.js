@@ -1,5 +1,5 @@
 const expect = require('expect');
-const counter = require('./index.js');
+const counter = require('./counter.js');
 
 expect(counter(undefined, {}))
     .toEqual(0);

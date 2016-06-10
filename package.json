@@ -4,7 +4,7 @@
   "description": "Dan abramov's react and redux course",
   "main": "index.js",
   "scripts": {
-    "test": "node index.test.js"
+    "test": "node counter.test.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "license": "ISC",
   "devDependencies": {
     "expect": "^1.20.1"
+  },
+  "dependencies": {
+    "redux": "^3.5.2"
   }
 }
