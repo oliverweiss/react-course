@@ -16,5 +16,8 @@
     "course"
   ],
   "author": "oliverweiss",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "expect": "^1.20.1"
+  }
 }
