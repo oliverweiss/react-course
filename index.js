@@ -1,30 +1,19 @@
-// const {createStore} = require('redux');
-const counter = require('./counter.js');
+const {createStore} = require('redux');
+const reducer = require('./reducers/counter.js');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Counter = require('./components/counter.js');
 
-const createStore = (reducer) => {
-    let state;
-    let listeners = [];
+const store = createStore(reducer);
 
-    const getState = () => state;
-    const subscribe = (listener) => {
-        listeners.push(listener);
-        return () => listeners = listeners.filter(l => l != listener);
-    };
-    const dispatch = (action) => {
-        state = reducer(state, action);
-        listeners.forEach(l => l());
-    }
-
-    dispatch({});
-
-    return {getState, subscribe, dispatch};
-};
-
-const store = createStore(counter);
-
-const render = () => document.body.innerText = store.getState();
+const render = () => ReactDOM.render(
+    <Counter
+        value={store.getState()}
+        onIncrement={() => store.dispatch({type:'INCREMENT'})}
+        onDecrement={() => store.dispatch({type:'DECREMENT'})}
+    />,
+    document.getElementById('app')
+);
 
 store.subscribe(render);
 render();
-
-document.addEventListener("click", () => store.dispatch({type:'INCREMENT'}));
