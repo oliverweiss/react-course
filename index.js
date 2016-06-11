@@ -1,16 +1,18 @@
 const {createStore} = require('redux');
-const reducer = require('./reducers/counter.js');
+const reducer = require('./reducers/list.js');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const Counter = require('./components/counter.js');
+const List = require('./components/list.js');
 
 const store = createStore(reducer);
 
 const render = () => ReactDOM.render(
-    <Counter
-        value={store.getState()}
-        onIncrement={() => store.dispatch({type:'INCREMENT'})}
-        onDecrement={() => store.dispatch({type:'DECREMENT'})}
+    <List
+        values={store.getState()}
+        onIncrement={(index) => store.dispatch({type:'INCREMENT', position: index})}
+        onDecrement={(index) => store.dispatch({type:'DECREMENT', position: index})}
+        onAdd={() => store.dispatch({type:'ADD_COUNTER'})}
+        onDelete={(index) => store.dispatch({type:'DELETE_COUNTER', position: index})}
     />,
     document.getElementById('app')
 );
