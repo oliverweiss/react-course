@@ -1,4 +1,4 @@
-const React = require('react');
+const React = require('react'); // eslint-disable-line no-unused-vars
 
 const Counter = ({value, onIncrement, onDecrement, onDelete}) => 
     <div>
