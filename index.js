@@ -1,8 +1,8 @@
 const {createStore} = require('redux');
-const reducer = require('./reducers/list.js');
-const React = require('react');
+const reducer = require('./reducers/todos.js');
+const React = require('react'); // eslint-disable-line no-unused-vars
 const ReactDOM = require('react-dom');
-const List = require('./components/list.js');
+const List = require('./components/list.js'); // eslint-disable-line no-unused-vars
 
 const store = createStore(reducer);
 
