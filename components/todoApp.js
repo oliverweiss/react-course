@@ -19,7 +19,22 @@ const App = ({state, dispatch}) =>
 			<section className="main">
 				<input className="toggle-all" type="checkbox" />
 				<label htmlFor="toggle-all">Mark all as complete</label>
-				<ul className="todo-list"></ul>
+				<ul className="todo-list">
+                    <li data-id="1465924753575" className="completed">
+                        <div className="view">
+                            <input className="toggle" type="checkbox" />
+                            <label>Task</label>
+                            <button className="destroy"></button>
+                        </div>
+                    </li>
+                    <li data-id="1465924844445" className="">
+                        <div className="view">
+                            <input className="toggle" type="checkbox" />
+                            <label>Task</label>
+                            <button className="destroy"></button>
+                        </div>
+                    </li>
+				</ul>
 			</section>
 			<footer className="footer">
 				<span className="todo-count"></span>
