@@ -1,5 +1,6 @@
 const React = require('react'); // eslint-disable-line no-unused-vars
 const Header = require('./header.js'); // eslint-disable-line no-unused-vars
+const Main = require('./main.js'); // eslint-disable-line no-unused-vars
 
 const getTitle = (state) => {
     switch(state.length){
@@ -16,26 +17,12 @@ const App = ({state, dispatch}) =>
                     onEdit={(text) => dispatch({type:'EDIT_TEXT', text})}
                     onNewTodo={(text) => dispatch({type:'ADD_TODO', text})}
             />
-			<section className="main">
-				<input className="toggle-all" type="checkbox" />
-				<label htmlFor="toggle-all">Mark all as complete</label>
-				<ul className="todo-list">
-                    <li data-id="1465924753575" className="completed">
-                        <div className="view">
-                            <input className="toggle" type="checkbox" />
-                            <label>Task</label>
-                            <button className="destroy"></button>
-                        </div>
-                    </li>
-                    <li data-id="1465924844445" className="">
-                        <div className="view">
-                            <input className="toggle" type="checkbox" />
-                            <label>Task</label>
-                            <button className="destroy"></button>
-                        </div>
-                    </li>
-				</ul>
-			</section>
+			<Main todos={state}
+                  onToggleAll={() => dispatch({type:'TOGGLE_ALL_TODOS'})}
+                  onToggle={(position) => dispatch({type: 'TOGGLE_TODO', position})}
+                  onClear={(position) => dispatch({type: 'CLEAR_TODO', position})}
+                  onEdit={(position, text) => dispatch({type: 'EDIT_TODO', position, text})}
+			/>
 			<footer className="footer">
 				<span className="todo-count"></span>
 				<ul className="filters">
