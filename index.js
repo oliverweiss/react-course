@@ -12,13 +12,6 @@ const dispatchAction = (action) => {
 };
 
 const render = () => ReactDOM.render(
-    // <List
-    //     values={store.getState()}
-    //     onIncrement={(index) => store.dispatch({type:'INCREMENT', position: index})}
-    //     onDecrement={(index) => store.dispatch({type:'DECREMENT', position: index})}
-    //     onAdd={() => store.dispatch({type:'ADD_COUNTER'})}
-    //     onDelete={(index) => store.dispatch({type:'DELETE_COUNTER', position: index})}
-    // />,
     <App
         state={store.getState()}
         dispatch={dispatchAction}
