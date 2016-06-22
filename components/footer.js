@@ -1,18 +1,30 @@
 const React = require('react'); // eslint-disable-line no-unused-vars
 
-const Footer = ({visible, todosLeft,  onClearCompleted}) =>
+
+const capitalize = (str) => str[0].toUpperCase() + str.slice(1); 
+
+const Filter = ({title, isActive, onFilter}) => // eslint-disable-line no-unused-vars
+	<li>
+		<a
+			href="#"
+			className={isActive ? 'selected' : ''}
+			onClick={onFilter}>
+			{title}
+		</a>
+	</li>;
+
+
+const Footer = ({visible, todosLeft, activeFilter, onClearCompleted, onFilter}) =>
     <footer className="footer" style={{display: visible ? 'block' : 'none'}}>
 				<span className="todo-count">{todosLeft} items left</span>
 				<ul className="filters">
-					<li>
-						<a href="#/" className="selected">All</a>
-					</li>
-					<li>
-						<a href="#/active">Active</a>
-					</li>
-					<li>
-						<a href="#/completed">Completed</a>
-					</li>
+					{['all', 'active', 'completed'].map((f) =>
+						<Filter key={f}
+								title={capitalize(f)}
+								isActive={activeFilter === f}
+								onFilter={() => onFilter(f)}
+						/>
+					)}
 				</ul>
 				<button className="clear-completed" onClick={onClearCompleted}>Clear completed</button>
 			</footer>;

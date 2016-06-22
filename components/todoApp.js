@@ -29,7 +29,9 @@ const App = ({state, dispatch}) =>
 			/>
 			<Footer visible={state.length > 0}
 					todosLeft={countUndone(state)}
-                    onClearCompleted={() => dispatch({type: 'CLEAR_COMPLETED_TODOS'})} />
+                    activeFilter={'all'}
+                    onClearCompleted={() => dispatch({type: 'CLEAR_COMPLETED_TODOS'})}
+                    onFilter={(filter) => dispatch({type: 'SET_FILTER', filter})} />
 		</section>
 		<footer className="info">
 			<p>Double-click to edit a todo</p>
