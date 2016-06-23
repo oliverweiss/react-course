@@ -4,32 +4,39 @@ const Main = require('./main.js'); // eslint-disable-line no-unused-vars
 const Footer = require('./footer.js'); // eslint-disable-line no-unused-vars
 
 
-const getTitle = (state) => {
-    switch(state.length){
+const getTitle = (todos) => {
+    switch(todos.length){
         case 0: return 'no todos'; // eslint-disable-line no-magic-numbers
         case 1: return '1 todo'; // eslint-disable-line no-magic-numbers
-        default: return `${state.length} todos`;
+        default: return `${todos.length} todos`;
     }
 };
 
-const countUndone = (state) => state.filter((t) => !t.done).length;
+const countUndone = (todos) => todos.filter((t) => !t.done).length;
+const filterTodo = (filter) => (todo) => {
+    switch (filter) {
+        case 'completed': return todo.done;
+        case 'active': return !todo.done;
+        default: return true;
+    }
+};
 
 const App = ({state, dispatch}) => 
     <div>
         <section className="todoapp">
-            <Header title={getTitle(state)}
+            <Header title={getTitle(state.todos)}
                     onEdit={(text) => dispatch({type:'EDIT_TEXT', text})}
                     onNewTodo={(text) => dispatch({type:'ADD_TODO', text})}
             />
-			<Main todos={state}
+			<Main todos={state.todos.filter(filterTodo(state.filter))}
                   onToggleAll={() => dispatch({type:'TOGGLE_ALL_TODOS'})}
                   onToggle={(position) => dispatch({type: 'TOGGLE_TODO', position})}
                   onClear={(position) => dispatch({type: 'CLEAR_TODO', position})}
                   onEdit={(position, text) => dispatch({type: 'EDIT_TODO', position, text})}
 			/>
-			<Footer visible={state.length > 0}
-					todosLeft={countUndone(state)}
-                    activeFilter={'all'}
+			<Footer visible={state.todos.length > 0}
+					todosLeft={countUndone(state.todos)}
+                    activeFilter={state.filter}
                     onClearCompleted={() => dispatch({type: 'CLEAR_COMPLETED_TODOS'})}
                     onFilter={(filter) => dispatch({type: 'SET_FILTER', filter})} />
 		</section>

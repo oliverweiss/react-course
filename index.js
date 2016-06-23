@@ -1,5 +1,5 @@
 const {createStore} = require('redux');
-const reducer = require('./reducers/todos.js');
+const reducer = require('./reducers/app.js');
 const React = require('react'); // eslint-disable-line no-unused-vars
 const ReactDOM = require('react-dom');
 const App = require('./components/todoApp.js'); // eslint-disable-line no-unused-vars
@@ -7,8 +7,11 @@ const App = require('./components/todoApp.js'); // eslint-disable-line no-unused
 const store = createStore(reducer);
 
 const dispatchAction = (action) => {
-    console.dir(action);
+    console.group(action.type);
+    console.log(action);
     store.dispatch(action);
+    console.log(store.getState());
+    console.groupEnd(action.type);
 };
 
 const render = () => ReactDOM.render(
