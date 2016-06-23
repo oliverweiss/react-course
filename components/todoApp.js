@@ -2,9 +2,10 @@ const React = require('react'); // eslint-disable-line no-unused-vars
 const Header = require('./header.js'); // eslint-disable-line no-unused-vars
 const Main = require('./main.js'); // eslint-disable-line no-unused-vars
 const Footer = require('./footer.js'); // eslint-disable-line no-unused-vars
+const todosActions = require('../actions/todos.js');
+const filterActions = require('../actions/filter.js');
 
-
-const getTitle = (todos) => {
+const getTitle = ({todos}) => {
     switch(todos.length){
         case 0: return 'no todos'; // eslint-disable-line no-magic-numbers
         case 1: return '1 todo'; // eslint-disable-line no-magic-numbers
@@ -12,7 +13,6 @@ const getTitle = (todos) => {
     }
 };
 
-const countUndone = (todos) => todos.filter((t) => !t.done).length;
 const filterTodo = (filter) => (todo) => {
     switch (filter) {
         case 'completed': return todo.done;
@@ -20,25 +20,29 @@ const filterTodo = (filter) => (todo) => {
         default: return true;
     }
 };
+const getVisibleTodos = (state) => state.todos.filter(filterTodo(state.filter));
 
-const App = ({state, dispatch}) => 
+const countUndone = ({todos}) => todos.filter((t) => !t.done).length;
+
+const anyTodo = (state) => state.todos.length > 0;
+
+const App = ({state, onAction}) => 
     <div>
         <section className="todoapp">
-            <Header title={getTitle(state.todos)}
-                    onEdit={(text) => dispatch({type:'EDIT_TEXT', text})}
-                    onNewTodo={(text) => dispatch({type:'ADD_TODO', text})}
+            <Header title={getTitle(state)}
+                    onNewTodo={onAction(todosActions.add)}
             />
-			<Main todos={state.todos.filter(filterTodo(state.filter))}
-                  onToggleAll={() => dispatch({type:'TOGGLE_ALL_TODOS'})}
-                  onToggle={(position) => dispatch({type: 'TOGGLE_TODO', position})}
-                  onClear={(position) => dispatch({type: 'CLEAR_TODO', position})}
-                  onEdit={(position, text) => dispatch({type: 'EDIT_TODO', position, text})}
+			<Main todos={getVisibleTodos(state)}
+                  onToggleAll={onAction(todosActions.toggleAll)}
+                  onToggle={onAction(todosActions.toggle)}
+                  onClear={onAction(todosActions.clear)}
+                  onEdit={onAction(todosActions.edit)}
 			/>
-			<Footer visible={state.todos.length > 0}
-					todosLeft={countUndone(state.todos)}
+			<Footer visible={anyTodo(state)}
+					todosLeft={countUndone(state)}
                     activeFilter={state.filter}
-                    onClearCompleted={() => dispatch({type: 'CLEAR_COMPLETED_TODOS'})}
-                    onFilter={(filter) => dispatch({type: 'SET_FILTER', filter})} />
+                    onClearCompleted={onAction(todosActions.clearCompleted)}
+                    onFilter={onAction(filterActions.set)} />
 		</section>
 		<footer className="info">
 			<p>Double-click to edit a todo</p>

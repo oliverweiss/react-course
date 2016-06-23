@@ -14,10 +14,13 @@ const dispatchAction = (action) => {
     console.groupEnd(action.type);
 };
 
+const dispatchActionBuilder = (dispatch) => (action) => (...args) => dispatch(action(...args));
+
 const render = () => ReactDOM.render(
     <App
         state={store.getState()}
         dispatch={dispatchAction}
+        onAction={dispatchActionBuilder(dispatchAction)}
     />,
     document.getElementById('app')
 );
