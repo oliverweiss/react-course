@@ -3,9 +3,9 @@ const filter = require('./filter.js');
 
 const combineReducers = (reducers) =>
     (state = {}, action) => 
-        Object.keys(reducers).reduce((_reducer, key) =>
+        Object.keys(reducers).reduce((_state, key) =>
             ({
-                ..._reducer,
+                ..._state,
                 [key]: reducers[key](state[key], action)
             }), {});
 
