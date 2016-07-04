@@ -35,7 +35,7 @@ const App = ({state, onAction}) =>
 			<Main todos={getVisibleTodos(state)}
                   onToggleAll={onAction(todosActions.toggleAll)}
                   onToggle={onAction(todosActions.toggle)}
-                  onClear={onAction(todosActions.clear)}
+                  onDelete={onAction(todosActions.clear)}
                   onEdit={onAction(todosActions.edit)}
 			/>
 			<Footer visible={anyTodo(state)}

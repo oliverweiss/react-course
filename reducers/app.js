@@ -1,13 +1,14 @@
 const todos = require('./todos.js');
 const filter = require('./filter.js');
+const combineReducers = require('redux').combineReducers;
 
-const combineReducers = (reducers) =>
-    (state = {}, action) => 
-        Object.keys(reducers).reduce((_state, key) =>
-            ({
-                ..._state,
-                [key]: reducers[key](state[key], action)
-            }), {});
+// const combineReducers = (reducers) =>
+//     (state = {}, action) => 
+//         Object.keys(reducers).reduce((_state, key) =>
+//             ({
+//                 ..._state,
+//                 [key]: reducers[key](state[key], action)
+//             }), {});
 
 const app = combineReducers({todos, filter});
 
